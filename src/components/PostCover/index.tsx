@@ -5,11 +5,13 @@ import type { PostCover as PostCoverType } from '@/domain/posts/post';
 import * as Styled from './styled';
 
 export type PostCoverProps = {
-  cover: PostCoverType;
+  cover?: PostCoverType | null;
   title: string;
 };
 
 export const PostCover = ({ cover, title }: PostCoverProps) => {
+  if (!cover) return null;
+
   return (
     <Styled.Wrapper>
       <Image

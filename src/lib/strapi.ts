@@ -1,5 +1,9 @@
 // src/lib/strapi.ts
-const STRAPI_URL = process.env.STRAPI_URL ?? 'http://localhost:1337';
+const STRAPI_URL = process.env.STRAPI_URL;
+
+if (!STRAPI_URL) {
+  throw new Error('Defina a variável de ambiente STRAPI_URL');
+}
 
 export async function strapiFetch<T>(
   path: string,

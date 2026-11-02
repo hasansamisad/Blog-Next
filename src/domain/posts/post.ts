@@ -41,7 +41,7 @@ export type PostData = StrapiBase & {
   title: string; // vale após marcar como Required no Strapi
   slug: string;
   content: string; // markdown; vale após preencher e marcar como Required
-  cover: PostCover;
+  cover?: PostCover | null;
   author?: PostAuthor | null;
   category?: PostCategory | null;
 };

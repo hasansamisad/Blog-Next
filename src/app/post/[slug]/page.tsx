@@ -21,7 +21,9 @@ export async function generateMetadata({
 
   if (!post) return { title: `Post não encontrado - ${SITE_NAME}` };
 
-  const description = post.content
+  const raw = typeof post.content === 'string' ? post.content : '';
+
+  const description = raw
     .replace(/[#*`>_~-]/g, '')
     .replace(/\s+/g, ' ')
     .trim()
