@@ -1,4 +1,5 @@
 import { strapiFetch } from '@/lib/strapi';
+import { normalizeContent } from '@/lib/normalize-content';
 import type { PostData, StrapiList } from '@/domain/posts/post';
 
 export async function getAllPosts(page = 1, pageSize = 9) {
@@ -14,7 +15,11 @@ export async function getPostBySlug(slug: string): Promise<PostData | null> {
     `posts?populate=*&filters[slug][$eq]=${encodeURIComponent(slug)}`,
     { next: { revalidate: 60, tags: ['posts', `post-${slug}`] } }
   );
-  return res.data[0] ?? null;
+
+  const post = res.data[0];
+  if (!post) return null;
+
+  return { ...post, content: normalizeContent(post.content) };
 }
 
 export async function getAllPostSlugs(): Promise<string[]> {
